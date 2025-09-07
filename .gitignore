@@ -2,3 +2,5 @@
 data/output/.DS_Store
 .DS_Store
 data/.DS_Store
+data/output/*.jsonl.gz
+data/output/*.jsonl
