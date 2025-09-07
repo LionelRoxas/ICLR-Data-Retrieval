@@ -1,2 +1,4 @@
 data/output/*.gz filter=lfs diff=lfs merge=lfs -text
+data/output/*.jsonl filter=lfs diff=lfs merge=lfs -text
 data/output/iclr2016-2025_main.jsonl.gz filter=lfs diff=lfs merge=lfs -text
+data/output/iclr2016-2025_main.jsonl filter=lfs diff=lfs merge=lfs -text
