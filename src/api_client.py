@@ -5,6 +5,7 @@ Handles both API v1 (2016-2022) and API v2 (2023-2025)
 import openreview
 import time
 from typing import List, Any, Dict
+from tqdm import tqdm
 
 class OpenReviewClient:
     """Wrapper for OpenReview API with version handling"""
@@ -40,17 +41,14 @@ class OpenReviewClient:
             List of submission objects
         """
         try:
-            if year >= 2023:
-                # Try API v2 first for 2023+
-                print(f"  Attempting API v2 for year {year}...")
+            if year >= 2024:
+                # Use the v2 submissions method which handles wrapping
                 submissions = self._get_v2_submissions(year)
-                
-                # If v2 fails, try v1 as fallback for ANY year >= 2023
                 if not submissions:
                     print(f"  API v2 returned no results, falling back to API v1...")
                     submissions = self._get_v1_submissions(year)
             else:
-                # API v1 for pre-2023
+                # API v1 for pre-2024
                 submissions = self._get_v1_submissions(year)
             
             return submissions
@@ -60,6 +58,42 @@ class OpenReviewClient:
             import traceback
             traceback.print_exc()
             return []
+
+    def _get_v1_reviews_separately(self, forum_id: str, year: int) -> List[Any]:
+        """
+        Fetch reviews separately for papers (needed for 2016-2017)
+        """
+        reviews = []
+        
+        # Different invitation patterns by year
+        if year == 2016:
+            review_invitations = [
+                'ICLR.cc/2016/workshop/-/paper/*/comment',
+                'ICLR.cc/2016/-/paper/*/comment'
+            ]
+        elif year == 2017:
+            review_invitations = [
+                'ICLR.cc/2017/conference/-/paper/*/review',
+                'ICLR.cc/2017/conference/-/submission/*/review'
+            ]
+        else:
+            # 2018+ should have reviews in directReplies
+            return []
+        
+        for invitation_pattern in review_invitations:
+            try:
+                # Replace * with actual forum ID
+                invitation = invitation_pattern.replace('*', forum_id)
+                notes = self.client_v1.get_all_notes(
+                    invitation=invitation,
+                    forum=forum_id
+                )
+                if notes:
+                    reviews.extend(notes)
+            except:
+                continue
+        
+        return reviews
     
     def _get_v2_submissions(self, year: int) -> List[Any]:
         """
@@ -95,6 +129,7 @@ class OpenReviewClient:
                         # Use get_notes instead of get_all_notes for better control
                         notes = self.client_v2.get_notes(
                             invitation=invitation,
+                            details='replies',  # ADD THIS
                             limit=limit,
                             offset=offset
                         )
@@ -144,6 +179,7 @@ class OpenReviewClient:
                     try:
                         notes = self.client_v2.get_notes(
                             content={'venueid': venue_id},
+                            details='replies',  # ADD THIS
                             limit=limit,
                             offset=offset
                         )
@@ -188,39 +224,20 @@ class OpenReviewClient:
                 try:
                     # Create a wrapper object that mimics v1 structure
                     processed_note = self._create_v2_wrapper(note, year)
-                    
-                    # Get reviews and replies for this submission
-                    try:
-                        reviews = self._get_v2_reviews(note.id, year)
-                    except:
-                        reviews = []
-                    
-                    # Attach reviews to the processed note
-                    if not hasattr(processed_note, 'details'):
-                        processed_note.details = {}
-                    processed_note.details['replies'] = reviews
-                    processed_note.details['directReplies'] = reviews
+                    # The wrapper already has the replies, don't overwrite them!
                     
                     processed_submissions.append(processed_note)
                     
                 except Exception as e:
                     print(f"    Warning: Error processing paper {i}: {str(e)[:100]}")
-                    try:
-                        # Still try to add the note even if processing fails
-                        processed_note = self._create_v2_wrapper(note, year)
-                        if not hasattr(processed_note, 'details'):
-                            processed_note.details = {}
-                        processed_note.details['replies'] = []
-                        processed_submissions.append(processed_note)
-                    except:
-                        # Skip this note entirely if we can't process it
-                        continue
+                    # Skip this note entirely if we can't process it
+                    continue
                 
                 time.sleep(0.02)  # Smaller delay for rate limiting
             
             print(f"  ✓ Successfully processed {len(processed_submissions)} papers")
             return processed_submissions
-        
+
         print(f"  ✗ No submissions found with API v2")
         return []
     
@@ -251,8 +268,14 @@ class OpenReviewClient:
                 raw_content = getattr(v2_note, 'content', {})
                 self.content = self._normalize_content(raw_content)
                 
-                # Initialize details
-                self.details = {}
+                # Extract details including replies if present
+                if hasattr(v2_note, 'details'):
+                    self.details = v2_note.details
+                    # Make sure replies are accessible as both 'replies' and 'directReplies'
+                    if 'replies' in self.details:
+                        self.details['directReplies'] = self.details['replies']
+                else:
+                    self.details = {'replies': [], 'directReplies': []}
             
             def _normalize_content(self, v2_content: Dict) -> Dict:
                 """Extract values from v2 nested content structure"""
@@ -270,43 +293,12 @@ class OpenReviewClient:
         return NoteWrapper(note, year)
     
     def _get_v2_reviews(self, forum_id: str, year: int) -> List[Any]:
-        """
-        Get reviews for a specific submission using v2 API
-        
-        Args:
-            forum_id: The forum ID of the submission
-            year: Conference year
-            
-        Returns:
-            List of review objects
-        """
         reviews = []
         
-        # Try to get all notes in the forum
-        try:
-            # Use get_notes with forum parameter
-            forum_notes = self.client_v2.get_notes(
-                forum=forum_id,
-                limit=100
-            )
-            
-            if forum_notes and hasattr(forum_notes, '__iter__'):
-                for note in forum_notes:
-                    # Check if this is a review/meta-review/decision
-                    invitations = getattr(note, 'invitations', [])
-                    for inv in invitations:
-                        if any(keyword in inv for keyword in ['Review', 'Meta_Review', 'Decision', 'Comment']):
-                            # Create wrapper for the review
-                            wrapped_review = self._create_v2_wrapper(note, year)
-                            wrapped_review.invitation = inv
-                            reviews.append(wrapped_review)
-                            break
-            
-        except Exception as e:
-            # Silently fail - reviews might not be available
-            pass
-        
-        return reviews
+        # Skip individual review fetching for large conferences
+        # Reviews should already be in the submission details
+        return []  # Let the submission's directReplies handle it
+
     
     def _get_v1_submissions(self, year: int) -> List[Any]:
         """
@@ -322,7 +314,9 @@ class OpenReviewClient:
         if year == 2016:
             invitations = [
                 'ICLR.cc/2016/workshop/-/submission',
-                'ICLR.cc/2016/workshop/-/paper'
+                'ICLR.cc/2016/workshop/-/paper',
+                'ICLR.cc/2016/conference/-/submission',  # Try this just in case
+                'ICLR.cc/2016/Conference/-/Blind_Submission'  # And this
             ]
         elif year == 2017:
             invitations = [
@@ -411,6 +405,16 @@ class OpenReviewClient:
         
         if unique_submissions:
             print(f"  ✓ Total unique papers found with API v1: {len(unique_submissions)}")
+
+        # For 2016-2017, manually fetch and attach reviews
+        if year <= 2016 and unique_submissions:
+            print(f"  Fetching reviews separately for {year}...")
+            for submission in tqdm(unique_submissions[:10], desc="Adding reviews"):
+                if not hasattr(submission, 'details') or not submission.details.get('directReplies'):
+                    reviews = self._get_v1_reviews_separately(submission.id, year)  # Now this will work
+                    if not hasattr(submission, 'details'):
+                        submission.details = {}
+                    submission.details['directReplies'] = reviews
         
         return unique_submissions
     

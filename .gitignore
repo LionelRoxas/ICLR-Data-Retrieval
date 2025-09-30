@@ -2,3 +2,13 @@
 data/output/.DS_Store
 .DS_Store
 data/.DS_Store
+venv_3.11
+__pycache__/
+claude.md
+test_2016_meta.py
+test_2023_content.py
+test_2024_api_structure.py
+test_api.py
+test_meta_review_extraction.py
+test_review_extraction.py
+validate_data.py

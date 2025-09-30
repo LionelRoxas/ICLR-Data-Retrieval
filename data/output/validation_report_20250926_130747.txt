@@ -1,0 +1,161 @@
+ICLR DATA VALIDATION REPORT
+Generated: 2025-09-26 13:07:47
+Data file: data/output/iclr2016-2025_main.jsonl
+📊 Validating 33772 papers
+
+============================================================
+SCHEMA VALIDATION
+============================================================
+✅ All papers have required fields
+
+============================================================
+YEAR-BY-YEAR ANALYSIS
+============================================================
+
+2016: 125 papers
+  Papers with reviews: 73/125 (58.4%)
+  Papers with review text: 73/125 (58.4%)
+  Avg reviews per paper: 1.6
+  Papers with meta-review text: 0/125 (0.0%)
+  Decisions: {'workshop_paper': 73, 'accept': 52}
+
+2017: 651 papers
+  Papers with reviews: 614/651 (94.3%)
+  Papers with review text: 614/651 (94.3%)
+  Avg reviews per paper: 3.7
+  Papers with meta-review text: 490/651 (75.3%)
+  Decisions: {'accept': 527, 'workshop_paper': 124}
+
+2018: 1284 papers
+  Papers with reviews: 1186/1284 (92.4%)
+  Papers with review text: 1186/1284 (92.4%)
+  Avg reviews per paper: 3.3
+  Papers with meta-review text: 1265/1284 (98.5%)
+  Decisions: {'reject': 644, 'accept': 640}
+
+2019: 1419 papers
+  Papers with reviews: 1419/1419 (100.0%)
+  Papers with review text: 1419/1419 (100.0%)
+  Avg reviews per paper: 3.7
+  Papers with meta-review text: 1419/1419 (100.0%)
+  Decisions: {'accept': 1419}
+
+2020: 2213 papers
+  Papers with reviews: 2213/2213 (100.0%)
+  Papers with review text: 2213/2213 (100.0%)
+  Avg reviews per paper: 3.3
+  Papers with meta-review text: 2213/2213 (100.0%)
+  Decisions: {'accept': 687, 'reject': 1526}
+
+2021: 2594 papers
+  Papers with reviews: 2594/2594 (100.0%)
+  Papers with review text: 2594/2594 (100.0%)
+  Avg reviews per paper: 4.0
+  Papers with meta-review text: 2588/2594 (99.8%)
+  Decisions: {'accept': 859, 'reject': 1735}
+
+2022: 2617 papers
+  Papers with reviews: 2617/2617 (100.0%)
+  Papers with review text: 2617/2617 (100.0%)
+  Avg reviews per paper: 4.0
+  Papers with meta-review text: 2617/2617 (100.0%)
+  Decisions: {'accept': 1094, 'reject': 1523}
+
+2023: 3793 papers
+  Papers with reviews: 3793/3793 (100.0%)
+  Papers with review text: 3793/3793 (100.0%)
+  Avg reviews per paper: 3.9
+  Papers with meta-review text: 3793/3793 (100.0%)
+  Decisions: {'accept': 1573, 'reject': 2220}
+
+2024: 7404 papers
+  Papers with reviews: 7262/7404 (98.1%)
+  Papers with review text: 7262/7404 (98.1%)
+  Avg reviews per paper: 5.8
+  Papers with meta-review text: 5780/7404 (78.1%)
+  Decisions: {'reject': 3519, 'accept': 3885}
+
+2025: 11672 papers
+  Papers with reviews: 11520/11672 (98.7%)
+  Papers with review text: 11520/11672 (98.7%)
+  Avg reviews per paper: 7.0
+  Papers with meta-review text: 8728/11672 (74.8%)
+  Decisions: {'accept': 6653, 'reject': 5019}
+
+============================================================
+DATA QUALITY CHECKS
+============================================================
+
+Quality issues found:
+  ⚠️ empty_title: 1 (0.0%)
+  ⚠️ empty_abstract: 1 (0.0%)
+  ❌ reviews_without_scores: 53445 (158.3%)
+  ⚠️ reviews_without_text: 2 (0.0%)
+
+============================================================
+REVIEW QUALITY ANALYSIS
+============================================================
+Total reviews: 179268
+Reviews with text: 179266 (100.0%)
+Reviews with scores: 125823 (70.2%)
+Average review length: 1988 characters
+Min/Max review length: 1/44846 characters
+
+Score distribution (top 10):
+  '6: marginally above the acceptance threshold': 16455 reviews
+  '6': 14695 reviews
+  '5: marginally below the acceptance threshold': 14454 reviews
+  '5': 13101 reviews
+  '3: reject, not good enough': 11700 reviews
+  '3': 11537 reviews
+  '8: accept, good paper': 8662 reviews
+  '8': 6214 reviews
+  '6: Marginally above acceptance threshold': 4940 reviews
+  '5: Marginally below acceptance threshold': 4255 reviews
+
+============================================================
+SAMPLE PAPERS FROM 2024
+============================================================
+
+Paper 1:
+  ID: cXs5md5wAq
+  Title: Modelling Microbial Communities with Graph Neural Networks...
+  Authors: Albane Ruaud, Cansu Sancaktar, Marco Bagatella...
+  Reviews: 4
+  First review score: 6: marginally above the acceptance threshold
+  Review snippet: **Summary:**
+The study focuses on understanding the interactions between microorganisms, which is of...
+  Meta-review: The paper studies bacterial communities by applying GNNs. All reviewers generally agreed that the ar...
+  Decision: reject
+
+Paper 2:
+  ID: rhgIgTSSxW
+  Title: TabR: Tabular Deep Learning Meets Nearest Neighbors...
+  Authors: Yury Gorishniy, Ivan Rubachev, Nikolay Kartashev...
+  Reviews: 6
+  First review score: 3: reject, not good enough
+  Review snippet: **Summary:**
+The authors meticulously designed a supervised deep learning model for tabular data pre...
+  Meta-review: This submission contributes a neural architecture dedicated to tabular learning based on combining a...
+  Decision: accept
+
+============================================================
+SUMMARY REPORT
+============================================================
+Total papers: 33772
+Papers with reviews: 33291 (98.6%)
+Total reviews: 179268
+Average reviews per paper: 5.31
+Papers with meta-review text: 28893 (85.6%)
+Year range: 2016 - 2025
+File size: 739.05 MB
+
+------------------------------------------------------------
+OVERALL ASSESSMENT:
+✅ Good review coverage
+✅ Good average reviews per paper
+✅ Good meta-review coverage
+
+Overall quality score: 3/3
+
+✅ Validation complete!
