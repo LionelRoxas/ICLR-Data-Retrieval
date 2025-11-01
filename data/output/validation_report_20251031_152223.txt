@@ -1,5 +1,5 @@
 ICLR DATA VALIDATION REPORT
-Generated: 2025-09-26 13:07:47
+Generated: 2025-10-31 15:22:23
 Data file: data/output/iclr2016-2025_main.jsonl
 📊 Validating 33772 papers
 
@@ -17,70 +17,109 @@ YEAR-BY-YEAR ANALYSIS
   Papers with review text: 73/125 (58.4%)
   Avg reviews per paper: 1.6
   Papers with meta-review text: 0/125 (0.0%)
-  Decisions: {'workshop_paper': 73, 'accept': 52}
+  Decisions breakdown:
+    workshop_paper: 73 (58.4%)
+    None/Unknown: 52 (41.6%)
+  📊 Acceptance rate: 0/125 (0.0%)
 
 2017: 651 papers
   Papers with reviews: 614/651 (94.3%)
   Papers with review text: 614/651 (94.3%)
   Avg reviews per paper: 3.7
   Papers with meta-review text: 490/651 (75.3%)
-  Decisions: {'accept': 527, 'workshop_paper': 124}
+  Decisions breakdown:
+    None/Unknown: 527 (81.0%)
+    workshop_paper: 124 (19.0%)
+  📊 Acceptance rate: 0/651 (0.0%)
 
 2018: 1284 papers
   Papers with reviews: 1186/1284 (92.4%)
   Papers with review text: 1186/1284 (92.4%)
   Avg reviews per paper: 3.3
   Papers with meta-review text: 1265/1284 (98.5%)
-  Decisions: {'reject': 644, 'accept': 640}
+  Decisions breakdown:
+    reject: 644 (50.2%)
+    accept: 532 (41.4%)
+    None/Unknown: 108 (8.4%)
+  📊 Acceptance rate: 532/1284 (41.4%)
+  📊 Rejection rate: 644/1284 (50.2%)
 
 2019: 1419 papers
   Papers with reviews: 1419/1419 (100.0%)
   Papers with review text: 1419/1419 (100.0%)
   Avg reviews per paper: 3.7
   Papers with meta-review text: 1419/1419 (100.0%)
-  Decisions: {'accept': 1419}
+  Decisions breakdown:
+    None/Unknown: 1419 (100.0%)
+  📊 Acceptance rate: 0/1419 (0.0%)
 
 2020: 2213 papers
   Papers with reviews: 2213/2213 (100.0%)
   Papers with review text: 2213/2213 (100.0%)
   Avg reviews per paper: 3.3
   Papers with meta-review text: 2213/2213 (100.0%)
-  Decisions: {'accept': 687, 'reject': 1526}
+  Decisions breakdown:
+    reject: 1526 (69.0%)
+    accept: 687 (31.0%)
+  📊 Acceptance rate: 687/2213 (31.0%)
+  📊 Rejection rate: 1526/2213 (69.0%)
 
 2021: 2594 papers
   Papers with reviews: 2594/2594 (100.0%)
   Papers with review text: 2594/2594 (100.0%)
   Avg reviews per paper: 4.0
   Papers with meta-review text: 2588/2594 (99.8%)
-  Decisions: {'accept': 859, 'reject': 1735}
+  Decisions breakdown:
+    reject: 1735 (66.9%)
+    accept: 859 (33.1%)
+  📊 Acceptance rate: 859/2594 (33.1%)
+  📊 Rejection rate: 1735/2594 (66.9%)
 
 2022: 2617 papers
   Papers with reviews: 2617/2617 (100.0%)
   Papers with review text: 2617/2617 (100.0%)
   Avg reviews per paper: 4.0
   Papers with meta-review text: 2617/2617 (100.0%)
-  Decisions: {'accept': 1094, 'reject': 1523}
+  Decisions breakdown:
+    reject: 1523 (58.2%)
+    accept: 1094 (41.8%)
+  📊 Acceptance rate: 1094/2617 (41.8%)
+  📊 Rejection rate: 1523/2617 (58.2%)
 
 2023: 3793 papers
   Papers with reviews: 3793/3793 (100.0%)
   Papers with review text: 3793/3793 (100.0%)
   Avg reviews per paper: 3.9
   Papers with meta-review text: 3793/3793 (100.0%)
-  Decisions: {'accept': 1573, 'reject': 2220}
+  Decisions breakdown:
+    reject: 2220 (58.5%)
+    accept: 1573 (41.5%)
+  📊 Acceptance rate: 1573/3793 (41.5%)
+  📊 Rejection rate: 2220/3793 (58.5%)
 
 2024: 7404 papers
   Papers with reviews: 7262/7404 (98.1%)
   Papers with review text: 7262/7404 (98.1%)
   Avg reviews per paper: 5.8
   Papers with meta-review text: 5780/7404 (78.1%)
-  Decisions: {'reject': 3519, 'accept': 3885}
+  Decisions breakdown:
+    reject: 3519 (47.5%)
+    accept: 2261 (30.5%)
+    None/Unknown: 1624 (21.9%)
+  📊 Acceptance rate: 2261/7404 (30.5%)
+  📊 Rejection rate: 3519/7404 (47.5%)
 
 2025: 11672 papers
   Papers with reviews: 11520/11672 (98.7%)
   Papers with review text: 11520/11672 (98.7%)
   Avg reviews per paper: 7.0
   Papers with meta-review text: 8728/11672 (74.8%)
-  Decisions: {'accept': 6653, 'reject': 5019}
+  Decisions breakdown:
+    reject: 5019 (43.0%)
+    accept: 3708 (31.8%)
+    None/Unknown: 2945 (25.2%)
+  📊 Acceptance rate: 3708/11672 (31.8%)
+  📊 Rejection rate: 5019/11672 (43.0%)
 
 ============================================================
 DATA QUALITY CHECKS
@@ -89,14 +128,14 @@ DATA QUALITY CHECKS
 Quality issues found:
   ⚠️ empty_title: 1 (0.0%)
   ⚠️ empty_abstract: 1 (0.0%)
-  ❌ reviews_without_scores: 53445 (158.3%)
+  ❌ reviews_without_scores: 53454 (158.3%)
   ⚠️ reviews_without_text: 2 (0.0%)
 
 ============================================================
 REVIEW QUALITY ANALYSIS
 ============================================================
-Total reviews: 179268
-Reviews with text: 179266 (100.0%)
+Total reviews: 179277
+Reviews with text: 179275 (100.0%)
 Reviews with scores: 125823 (70.2%)
 Average review length: 1988 characters
 Min/Max review length: 1/44846 characters
@@ -122,10 +161,10 @@ Paper 1:
   Title: Modelling Microbial Communities with Graph Neural Networks...
   Authors: Albane Ruaud, Cansu Sancaktar, Marco Bagatella...
   Reviews: 4
-  First review score: 6: marginally above the acceptance threshold
+  First review score: 3: reject, not good enough
   Review snippet: **Summary:**
-The study focuses on understanding the interactions between microorganisms, which is of...
-  Meta-review: The paper studies bacterial communities by applying GNNs. All reviewers generally agreed that the ar...
+The paper aims at predicting steady-state composition of microbial communities from the...
+  Meta-review: Reject...
   Decision: reject
 
 Paper 2:
@@ -133,10 +172,11 @@ Paper 2:
   Title: TabR: Tabular Deep Learning Meets Nearest Neighbors...
   Authors: Yury Gorishniy, Ivan Rubachev, Nikolay Kartashev...
   Reviews: 6
-  First review score: 3: reject, not good enough
-  Review snippet: **Summary:**
-The authors meticulously designed a supervised deep learning model for tabular data pre...
-  Meta-review: This submission contributes a neural architecture dedicated to tabular learning based on combining a...
+  First review score: 
+  Review snippet: Thank you for your responses, which have partially addressed my concerns.
+
+1. However, I find it puz...
+  Meta-review: Accept (poster)...
   Decision: accept
 
 ============================================================
@@ -144,11 +184,11 @@ SUMMARY REPORT
 ============================================================
 Total papers: 33772
 Papers with reviews: 33291 (98.6%)
-Total reviews: 179268
+Total reviews: 179277
 Average reviews per paper: 5.31
 Papers with meta-review text: 28893 (85.6%)
 Year range: 2016 - 2025
-File size: 739.05 MB
+File size: 723.41 MB
 
 ------------------------------------------------------------
 OVERALL ASSESSMENT:

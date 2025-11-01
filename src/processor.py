@@ -480,7 +480,7 @@ class PaperProcessor:
             return 'workshop_paper'
         
         # Default to accept for main track
-        return 'accept'
+        return None
     
     @staticmethod
     def build_paper_record(submission: Any, year: int) -> Dict:
